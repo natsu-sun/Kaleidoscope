@@ -4,11 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>万華鏡文字生</title>
+    <title>万華鏡文字生成ツール</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    
+    <header>
+        <h1>万華鏡文字</h1>
+    </header>
+    <main>
+        <div id="view">
+            <canvas id="cv"></canvas>
+        </div>
+        <div id="control">
+            <ul>
+                <li><span class="label">文字</span><span class="ctrl"><input type="text" id="text"></span><span id="v-text"></span></li>
+                <li><span class="label">サイズ</span><span class="ctrl"><input type="range" id="size" min="80" max="200" value="80"></span><span id="v-size"></span></li>
+                <li><span class="label">x</span><span class="ctrl"><input type="range" id="x" min="-200" max="200" value="0"></span><span id="v-x"></span></li>
+                <li><span class="label">y</span><span class="ctrl"><input type="range" id="y" min="-200" max="200" value="0"></span><span id="v-y"></span></li>
+                <li><span class="label">回転</span><span class="ctrl"><input type="range" id="r" min="0" max="359" value="0"></span><span id="v-r"></span></li>
+                <li><span class="label">個数</span><span class="ctrl"><input type="range" id="n" min="3" max="12" value="3"></span><span id="v-n"></span></li>
+            </ul>
+        </div>
+    </main>
+    <footer>
+        <div id="copyright">© 2022 natsu.</div>
+    </footer>
     <script src="./main.js" async></script>
 </body>
 </html>
