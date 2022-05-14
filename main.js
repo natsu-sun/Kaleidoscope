@@ -15,6 +15,7 @@ tctx.textAlign = "center"
 ;(() => {
     document.getElementById('text').addEventListener('input', refresh)
     document.getElementById('ans').addEventListener('change', refresh)
+    document.getElementById('half').addEventListener('change', refresh)
 
     const list = ['size', 'x', 'y', 'r', 'n']
     for (const name of list) {
@@ -28,6 +29,7 @@ refresh()
 
 function refresh() {
     const ans_on = document.getElementById('ans').checked
+    const half_on = document.getElementById('half').checked
 
     // 文字生成
     const text = document.getElementById('text').value
@@ -64,8 +66,30 @@ function refresh() {
         ctx.drawImage(tcv, x-cv.width/2, y-cv.height/2)
     }
 
+    if (half_on) convertHalfTone()
     cv2img()
 }
+
+function convertHalfTone() {
+    // キャンバス全体のピクセル情報を取得
+    const imageData = ctx.getImageData(0, 0, cv.width, cv.height)
+    const width = imageData.width
+    const height = imageData.height
+    const pixels = imageData.data       // ピクセル配列：RGBA4要素で1ピクセル
+    
+    // ピクセル単位で操作
+    const n = 2 // 1/n を除去
+    for (let i=0; i < width * height; ++i) {
+        const base = i * n * 4
+        pixels[base + 0] = 0    // Red
+        pixels[base + 1] = 0    // Green
+        pixels[base + 2] = 0    // Blue
+        pixels[base + 3] = 0    // Alpha
+    }
+    
+    // 変更した内容をキャンバスに書き戻す
+    ctx.putImageData(imageData, 0, 0);
+}    
 
 // inputイベント時に値をセットする関数
 function rangeOnChange(e) {
