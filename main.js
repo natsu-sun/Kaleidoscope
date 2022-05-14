@@ -1,3 +1,5 @@
+'use strict'
+
 // 万華鏡キャンバス
 const cv = document.createElement("canvas")
 cv.width = cv.height = 400
@@ -9,13 +11,16 @@ const tctx = tcv.getContext("2d")
 tctx.textBaseline = "middle"
 tctx.textAlign = "center"
 
-document.getElementById('text').addEventListener('input', refresh)
 
-document.getElementById('size').addEventListener('input', rangeOnChange)
-document.getElementById('x').addEventListener('input', rangeOnChange)
-document.getElementById('y').addEventListener('input', rangeOnChange)
-document.getElementById('r').addEventListener('input', rangeOnChange)
-document.getElementById('n').addEventListener('input', rangeOnChange)
+;(() => {
+    document.getElementById('text').addEventListener('input', refresh)
+
+    const list = ['size', 'x', 'y', 'r', 'n']
+    for (const name of list) {
+        document.getElementById(name).addEventListener('input', rangeOnChange)
+        updateDispValueById(name)
+    }
+})()
 
 refresh()
 
@@ -58,6 +63,11 @@ function rangeOnChange(e) {
     const t = document.getElementById("v-" + e.target.id)
     t.innerText = e.target.value;
     refresh()
+}
+
+function updateDispValueById(element_id) {
+    const e = document.getElementById("v-" + element_id)
+    e.innerText = document.getElementById(element_id).value
 }
 
 function cv2img() {
