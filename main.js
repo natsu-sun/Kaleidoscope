@@ -14,6 +14,7 @@ tctx.textAlign = "center"
 
 ;(() => {
     document.getElementById('text').addEventListener('input', refresh)
+    document.getElementById('ans').addEventListener('change', refresh)
 
     const list = ['size', 'x', 'y', 'r', 'n']
     for (const name of list) {
@@ -26,6 +27,8 @@ refresh()
 
 
 function refresh() {
+    const ans_on = document.getElementById('ans').checked
+
     // 文字生成
     const text = document.getElementById('text').value
     const sz = +document.getElementById('size').value
@@ -36,6 +39,7 @@ function refresh() {
     tctx.clearRect(0, 0, tcv.width, tcv.height)
     tctx.translate(tcv.width/2, tcv.height/2)
     tctx.rotate(r * Math.PI / 180)
+    tctx.fillStyle = '#333'
     tctx.fillText(text, 0, 0)
 
     // 万華鏡生成
@@ -46,12 +50,17 @@ function refresh() {
     const ang = 360 / n
     const deg = ang * Math.PI / 180
 
+    // リセット
+    ctx.globalAlpha = 1
     ctx.resetTransform()
     ctx.clearRect(0, 0, cv.width, cv.height)
     
     ctx.translate(cv.width/2, cv.height/2)
     for (let i=0; i<n; i++) {
         ctx.rotate(deg)
+        if (ans_on && i !== 0) {
+            ctx.globalAlpha = Math.min(0.4, 2.5 / n)
+        }
         ctx.drawImage(tcv, x-cv.width/2, y-cv.height/2)
     }
 
