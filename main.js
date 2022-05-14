@@ -1,5 +1,5 @@
 // 万華鏡キャンバス
-const cv = document.getElementById('cv')
+const cv = document.createElement("canvas")
 cv.width = cv.height = 400
 const ctx = cv.getContext("2d")
 // 文字キャンバス
@@ -49,6 +49,8 @@ function refresh() {
         ctx.rotate(deg)
         ctx.drawImage(tcv, x-cv.width/2, y-cv.height/2)
     }
+
+    cv2img()
 }
 
 // inputイベント時に値をセットする関数
@@ -56,4 +58,8 @@ function rangeOnChange(e) {
     const t = document.getElementById("v-" + e.target.id)
     t.innerText = e.target.value;
     refresh()
+}
+
+function cv2img() {
+    document.getElementById("cv").src = cv.toDataURL("image/png")
 }
