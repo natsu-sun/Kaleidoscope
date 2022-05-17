@@ -1,3 +1,7 @@
+body {
+    -webkit-user-select: none;
+}
+
 canvas#cv {
     border: 1px solid black;
 }
