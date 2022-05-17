@@ -78,13 +78,23 @@ function convertHalfTone() {
     const pixels = imageData.data       // ピクセル配列：RGBA4要素で1ピクセル
     
     // ピクセル単位で操作
-    const n = 2 // 1/n を除去
-    for (let i=0; i < width * height; ++i) {
-        const base = i * n * 4
-        pixels[base + 0] = 0    // Red
-        pixels[base + 1] = 0    // Green
-        pixels[base + 2] = 0    // Blue
-        pixels[base + 3] = 0    // Alpha
+    // const n = 2 // 1/n を除去
+    // for (let i=0; i < width * height / n; ++i) {
+    //     const base = i * n * 4
+    //     pixels[base + 0] = 0    // Red
+    //     pixels[base + 1] = 0    // Green
+    //     pixels[base + 2] = 0    // Blue
+    //     pixels[base + 3] = 0    // Alpha
+    // }
+    for (let i=0; i<height; ++i) {
+        const offset = i % 2
+        for (let j=0; j<width/2; ++j) {
+            const base = (i * width + j * 2 + offset) * 4
+            pixels[base + 0] = 0    // Red
+            pixels[base + 1] = 0    // Green
+            pixels[base + 2] = 0    // Blue
+            pixels[base + 3] = 0    // Alpha
+        }
     }
     
     // 変更した内容をキャンバスに書き戻す
