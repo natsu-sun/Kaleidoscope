@@ -62,6 +62,10 @@ img#cv {
     text-align: center;
 }
 
+input[type="text"] {
+    border: 1px solid #8acdff;
+}
+
 input[type="range"] {
     appearance: none;
     cursor: pointer;
