@@ -38,9 +38,8 @@ img#cv {
 }
 #control li {
     display: flex;
-    vertical-align: middle;
-    margin-top: 7px;
-    margin-bottom: 7px;
+    height: 2.3em;
+    justify-content: center;
 }
 #control ul span:first-of-type {
     flex-basis: 20%;
@@ -54,8 +53,8 @@ img#cv {
     flex-grow: 1;
 }
 #control ul input[type="text"],input[type="range"] {
-    width: 100%;
     box-sizing: border-box;
+    width: 100%;
 }
 
 #cbox {
@@ -69,24 +68,37 @@ input[type="text"] {
 input[type="range"] {
     appearance: none;
     cursor: pointer;
-    background-color: #8acdff;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-input[type="range"]::-webkit-slider-track {
-    appearance: none;
+input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
-    height: 1em;
-    background-color: #fff;
-    border: 1px solid #8acdff;
-    border-radius: 50%;
-    margin: 0 7px;
+    height: 0.5em;
+    background-color: #8acdff;
+    border-radius: 0.25em;
 }
 input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    width: 24px;
-    height: 24px;
-    margin: -7px 0;
-    background-color: #fff;
+    -webkit-appearance: none;
+    width: 2em;
+    height: 2em;
     border: 1px solid #8acdff;
     border-radius: 50%;
+    background-color: #fff;
+    margin-top: calc(-1em + 0.25em);
+}
+
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 0.5em;
+    border-radius: 0.25em;
+    background-color: #8acdff;
+}
+input[type="range"]::-moz-range-thumb {
+    width: 2em;
+    height: 2em;
+    border: 1px solid #8acdff;
+    border-radius: 50%;
+    background-color: #fff;
 }
