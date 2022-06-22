@@ -51,19 +51,33 @@ function refresh() {
 
     const ang = 360 / n
     const deg = ang * Math.PI / 180
+    
+    // 最も正しい向きに近いものを探す
+    let ans_index = 0
+    let last_ang = r < 180 ? r : 360 - r
+    for (let i = 0; i < n; i++) {
+        let d = (360 + (ang * i + r)) % 360
+        d = d < 180 ? d : 360 - d
+        if (d < last_ang) {
+            last_ang = d
+            ans_index = i
+        }
+    }
 
     // リセット
     ctx.globalAlpha = 1
     ctx.resetTransform()
     ctx.clearRect(0, 0, cv.width, cv.height)
     
-    ctx.translate(cv.width/2, cv.height/2)
-    for (let i=0; i<n; i++) {
-        ctx.rotate(deg)
-        if (ans_on && i !== 0) {
+    ctx.translate(cv.width / 2, cv.height / 2)
+    for (let i = 0; i < n; i++) {
+        if (ans_on && i !== ans_index) {
             ctx.globalAlpha = Math.min(0.4, 2.5 / n)
+        } else {
+            ctx.globalAlpha = 1
         }
         ctx.drawImage(tcv, x-cv.width/2, y-cv.height/2)
+        ctx.rotate(deg)
     }
 
     if (half_on) convertHalfTone()
@@ -78,14 +92,6 @@ function convertHalfTone() {
     const pixels = imageData.data       // ピクセル配列：RGBA4要素で1ピクセル
     
     // ピクセル単位で操作
-    // const n = 2 // 1/n を除去
-    // for (let i=0; i < width * height / n; ++i) {
-    //     const base = i * n * 4
-    //     pixels[base + 0] = 0    // Red
-    //     pixels[base + 1] = 0    // Green
-    //     pixels[base + 2] = 0    // Blue
-    //     pixels[base + 3] = 0    // Alpha
-    // }
     for (let i=0; i<height; ++i) {
         const offset = i % 2
         for (let j=0; j<width/2; ++j) {
